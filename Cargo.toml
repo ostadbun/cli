@@ -9,3 +9,6 @@ path = "src/main.rs"
 
 [dependencies]
 clap = { version = "4", features = ["derive"] }
+webbrowser = "0.7"
+tiny_http = "0.12"
+url = "2"
