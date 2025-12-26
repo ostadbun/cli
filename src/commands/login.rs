@@ -19,7 +19,25 @@ pub fn run() {
                 .collect();
             tx.send(params).unwrap();
 
-            let response = Response::from_string("Login successful! You can close this tab.");
+            let html = r#"
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Login complete</title>
+                <script type="text/javascript">
+                    window.onload = function() {
+                        window.open('', '_self').close();
+                    };
+                </script>
+            </head>
+            <body>
+            </body>
+            </html>
+            "#;
+
+            let header =
+                tiny_http::Header::from_bytes(&b"Content-Type"[..], &b"text/html"[..]).unwrap();
+            let response = Response::from_string(html).with_header(header);
             let _ = request.respond(response);
         }
     });
